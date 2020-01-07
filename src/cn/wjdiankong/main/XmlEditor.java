@@ -242,6 +242,14 @@ public class XmlEditor {
         XmlEditor.addAttr(tag, tagName, attrName, attrValue);
     }
 
+    /**
+     * 批量修改属性值
+     *
+     * @param tag          标签名
+     * @param attrName     属性名
+     * @param oldAttrValue 旧的属性值
+     * @param attrValue    新的属性值
+     */
     public static void BatchModifyAttr(String tag, String attrName, String oldAttrValue, String attrValue) {
         ParserChunkUtils.parserXml();
         int count = getAttrCount(tag, attrName, oldAttrValue);
@@ -250,7 +258,6 @@ public class XmlEditor {
             modifyAttr(tag, pa[0], attrName, pa[1]);
             count--;
         }
-
     }
 
     private static int getAttrCount(String tag, String attrName, String oldAttrValue) {
