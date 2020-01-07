@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AXMLEditor:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/AXMLEditor_jar</output-path>
+    <root id="archive" name="AXMLEditor.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/resources/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="AXMLEditor" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/xmlpull_1_1_3_4c.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/kxml2-2.3.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

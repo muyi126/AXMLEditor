@@ -21,8 +21,10 @@ public class StringChunk {
 	public ArrayList<String> stringContentList;
 	
 	public byte[] getByte(ArrayList<String> strList){
-		
+
+
 		byte[] strB = getStrListByte(strList);
+
 		
 		byte[] src = new byte[0];
 		
@@ -138,7 +140,7 @@ public class StringChunk {
 		//将字符串都放到ArrayList中
 		int endStringIndex = 2+firstStringSize+2;
 		while(chunk.stringContentList.size() < chunkStringCount){
-			//一个字符对应两个字节，所以要乘以2
+			//一个字符对应两个字节，所以要乘以 2
 			int stringSize = Utils.byte2Short(Utils.copyByte(chunkStringContentByte, endStringIndex, 2))*2;
 			byte[] temp = Utils.copyByte(chunkStringContentByte, endStringIndex+2, stringSize+2);
 			String str = new String(temp);
@@ -148,6 +150,7 @@ public class StringChunk {
 		
 		int len = 0;
 		for(String str : chunk.stringContentList){
+//			System.out.println(str);
 			len += 2;
 			len += str.length()*2;
 			len += 2;
