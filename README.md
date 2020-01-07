@@ -27,14 +27,21 @@ application标签中删除allowBackup属性，这样此app就可以进行沙盒�
 
 application的标签中修改android:debuggable="true"属性，让程序处于可调式状态
 
-### 4>插入标签
+### 4>批量更改属性
+**java -jar AXMLEditor.jar -attr -b [标签名]  [属性名] [需要修改的部分] [新值][输入xml] [输出xml]**
+
+案例：java -jar AXMLEditor.jar -attr -b activity taskAffinity com.vbooster.vbooster_private_space com.vbooster.wxtest AndroidManifest.xml out.xml
+
+批量修改 activity 标签中 taskAffinity 的属性值
+
+### 5>插入标签
 **java -jar AXMLEditor.jar -tag -i [需要插入标签内容的xml文件] [输入xml] [输出xml]**
 
 案例：java -jar AXMLEditor.jar -tag -i [insert.xml] AndroidManifest.xml AndroidManifest_out.xml
 
 因为插入标签时一个标签内容比较多，所以命令方式不方便，而是输入一个需要插入标签内容的xml文件即可。
 
-### 5>删除标签
+### 6>删除标签
 **java -jar AXMLEditor.jar -tag -r [标签名] [标签唯一标识] [输入xml] [输出xml]**
 
 案例：java -jar AXMLEditor.jar -tag -r activity cn.wjdiankong.demo.MainActivity AndroidManifest.xml AndroidManifest_out.xml
