@@ -8,23 +8,23 @@ import java.io.IOException;
 
 public class Main {
 
-    private final static String CMD_TXT = "[usage java -jar AXMLEditor.jar [-tag|-attr] [-i|-r|-m|-b] [±êÇ©Ãû|±êÇ©Î¨Ò»ID|ÊôĞÔÃû|ÊôĞÔÖµ|ĞèÒª±»Ìæ»»µÄÖµ] [ÊäÈëÎÄ¼ş|Êä³öÎÄ¼ş]";
+    private final static String CMD_TXT = "[usage java -jar AXMLEditor.jar [-tag|-attr] [-i|-r|-m|-b] [æ ‡ç­¾å|æ ‡ç­¾å”¯ä¸€ID|å±æ€§å|å±æ€§å€¼|éœ€è¦è¢«æ›¿æ¢çš„å€¼] [è¾“å…¥æ–‡ä»¶|è¾“å‡ºæ–‡ä»¶]";
 
     public static void main(String[] args) {
 
         /**
-         * ÃüÁî¸ñÊ½£º
-         * -i Ìí¼Ó¶¯×÷
-         * -r É¾³ı¶¯×÷
-         * -m ¸üĞÂ¶¯×÷
-         * -b ÅúÁ¿¸üĞÂ¶¯×÷
-         * -attr ÊôĞÔ
-         * -tag ±êÇ©
-         * ÊôĞÔ²Ù×÷Ö±½ÓÊäÈë²ÎÊı¼´¿É£¬±êÇ©²Ù×÷ĞèÒªÊäÈëĞÅÏ¢
+         * å‘½ä»¤æ ¼å¼ï¼š
+         * -i æ·»åŠ åŠ¨ä½œ
+         * -r åˆ é™¤åŠ¨ä½œ
+         * -m æ›´æ–°åŠ¨ä½œ
+         * -b æ‰¹é‡æ›´æ–°åŠ¨ä½œ
+         * -attr å±æ€§
+         * -tag æ ‡ç­¾
+         * å±æ€§æ“ä½œç›´æ¥è¾“å…¥å‚æ•°å³å¯ï¼Œæ ‡ç­¾æ“ä½œéœ€è¦è¾“å…¥ä¿¡æ¯
          */
 
         if (args.length < 3) {
-            System.out.println("²ÎÊıÓĞÎó...");
+            System.out.println("å‚æ•°æœ‰è¯¯...");
             System.out.println(CMD_TXT);
             return;
         }
@@ -34,11 +34,11 @@ public class Main {
         File inputFile = new File(inputfile);
         File outputFile = new File(outputfile);
         if (!inputFile.exists()) {
-            System.out.println("ÊäÈëÎÄ¼ş²»´æÔÚ...");
+            System.out.println("è¾“å…¥æ–‡ä»¶ä¸å­˜åœ¨...");
             return;
         }
 
-        //¶ÁÎÄ¼ş
+        //è¯»æ–‡ä»¶
         FileInputStream fis = null;
         ByteArrayOutputStream bos = null;
         try {
@@ -62,7 +62,7 @@ public class Main {
 
         doCommand(args);
 
-        //Ğ´ÎÄ¼ş
+        //å†™æ–‡ä»¶
         if (!outputFile.exists()) {
             outputFile.delete();
         }
@@ -87,11 +87,11 @@ public class Main {
 //        File inputFile = new File(inputfile);
 //        File outputFile = new File(outputfile);
 //        if (!inputFile.exists()) {
-//            System.out.println("ÊäÈëÎÄ¼ş²»´æÔÚ...");
+//            System.out.println("è¾“å…¥æ–‡ä»¶ä¸å­˜åœ¨...");
 //            return;
 //        }
 //
-//        //¶ÁÎÄ¼ş
+//        //è¯»æ–‡ä»¶
 //        FileInputStream fis = null;
 //        ByteArrayOutputStream bos = null;
 //        try {
@@ -115,7 +115,7 @@ public class Main {
 //
 //        testDemo();
 //
-//        //Ğ´ÎÄ¼ş
+//        //å†™æ–‡ä»¶
 //        if (!outputFile.exists()) {
 //            outputFile.delete();
 //        }
@@ -138,21 +138,21 @@ public class Main {
     }
 
     public static void testDemo() {
-        //É¾³ıÒ»¸ötag£¬É¾³ıtagÊ±±ØĞëÖ¸¶¨tagÃû³ÆºÍnameÖµ£¬ÕâÑù²ÅÄÜÎ¨Ò»È·¶¨Ò»¸ötagĞÅÏ¢
+        //åˆ é™¤ä¸€ä¸ªtagï¼Œåˆ é™¤tagæ—¶å¿…é¡»æŒ‡å®štagåç§°å’Œnameå€¼ï¼Œè¿™æ ·æ‰èƒ½å”¯ä¸€ç¡®å®šä¸€ä¸ªtagä¿¡æ¯
         //XmlEditor.removeTag("uses-permission", "android.permission.INTERNET");
         //XmlEditor.removeTag("activity", ".MainActivity");
 
-        //É¾³ıÊôĞÔ£¬±ØĞëÒªÖ¸¶¨ÊôĞÔ¶ÔÓ¦µÄtagÃû³ÆºÍnameÖµ£¬È»ºó¾ÍÊÇÊôĞÔÃû³Æ
+        //åˆ é™¤å±æ€§ï¼Œå¿…é¡»è¦æŒ‡å®šå±æ€§å¯¹åº”çš„tagåç§°å’Œnameå€¼ï¼Œç„¶åå°±æ˜¯å±æ€§åç§°
         //XmlEditor.removeAttr("activity", ".MainActivity", "name");
         //XmlEditor.removeAttr("uses-permission", "android.permission.INTERNET", "name");
 
-        //Ìí¼Ó±êÇ©£¬Ö±½ÓÔÚxmlÖĞÅäÖÃ¼´¿É£¬ĞèÒª×¢ÒâµÄÊÇÅäÖÃĞÅÏ¢£ºmanifestÏÂÃæµÄ±êÇ©±ØĞëÔÚapplication±êÇ©µÄºóÃæ
+        //æ·»åŠ æ ‡ç­¾ï¼Œç›´æ¥åœ¨xmlä¸­é…ç½®å³å¯ï¼Œéœ€è¦æ³¨æ„çš„æ˜¯é…ç½®ä¿¡æ¯ï¼šmanifestä¸‹é¢çš„æ ‡ç­¾å¿…é¡»åœ¨applicationæ ‡ç­¾çš„åé¢
         //XmlEditor.addTag();
 
-        //Ìí¼ÓÊôĞÔ£¬±ØĞëÖ¸¶¨±êÇ©ÄÚÈİ
+        //æ·»åŠ å±æ€§ï¼Œå¿…é¡»æŒ‡å®šæ ‡ç­¾å†…å®¹
 //		XmlEditor.addAttr("activity", ".MainActivity", "jiangwei", "fourbrother");
 
-        //¸ü¸ÄÊôĞÔ£¬ÕâÀïÖ±½Ó²ÉÓÃÏÈÉ¾³ı£¬ÔÙÌí¼Ó²ßÂÔÍê³É
+        //æ›´æ”¹å±æ€§ï¼Œè¿™é‡Œç›´æ¥é‡‡ç”¨å…ˆåˆ é™¤ï¼Œå†æ·»åŠ ç­–ç•¥å®Œæˆ
 ////		XmlEditor.modifyAttr("application", "package", "debuggable", "true");
 //        String oldPackageName = "com.vbooster.vbooster_private_space";
 //        String attrName = "taskAffinity";
@@ -167,106 +167,106 @@ public class Main {
     public static void doCommand(String[] args) {
         if ("-tag".equals(args[0])) {
             if (args.length < 2) {
-                System.out.println("È±ÉÙ²ÎÊı...");
+                System.out.println("ç¼ºå°‘å‚æ•°...");
                 System.out.println(CMD_TXT);
                 return;
             }
-            //±êÇ©
+            //æ ‡ç­¾
             if ("-i".equals(args[1])) {
                 if (args.length < 3) {
-                    System.out.println("È±ÉÙ²ÎÊı...");
+                    System.out.println("ç¼ºå°‘å‚æ•°...");
                     System.out.println(CMD_TXT);
                     return;
                 }
-                //²åÈë²Ù×÷
+                //æ’å…¥æ“ä½œ
                 String insertXml = args[2];
                 File file = new File(insertXml);
                 if (!file.exists()) {
-                    System.out.println("²åÈë±êÇ©xmlÎÄ¼ş²»´æÔÚ...");
+                    System.out.println("æ’å…¥æ ‡ç­¾xmlæ–‡ä»¶ä¸å­˜åœ¨...");
                     return;
                 }
                 XmlEditor.addTag(insertXml);
-                System.out.println("²åÈë±êÇ©Íê³É...");
+                System.out.println("æ’å…¥æ ‡ç­¾å®Œæˆ...");
                 return;
             } else if ("-r".equals(args[1])) {
                 if (args.length < 4) {
-                    System.out.println("È±ÉÙ²ÎÊı...");
+                    System.out.println("ç¼ºå°‘å‚æ•°...");
                     System.out.println(CMD_TXT);
                     return;
                 }
-                //É¾³ı²Ù×÷
+                //åˆ é™¤æ“ä½œ
                 String tag = args[2];
                 String tagName = args[3];
                 XmlEditor.removeTag(tag, tagName);
-                System.out.println("É¾³ı±êÇ©Íê³É...");
+                System.out.println("åˆ é™¤æ ‡ç­¾å®Œæˆ...");
                 return;
             } else {
-                System.out.println("²Ù×÷±êÇ©²ÎÊıÓĞÎó...");
+                System.out.println("æ“ä½œæ ‡ç­¾å‚æ•°æœ‰è¯¯...");
                 System.out.println(CMD_TXT);
                 return;
             }
         } else if ("-attr".equals(args[0])) {
             if (args.length < 2) {
-                System.out.println("È±ÉÙ²ÎÊı...");
+                System.out.println("ç¼ºå°‘å‚æ•°...");
                 System.out.println(CMD_TXT);
                 return;
             }
-            //ÊôĞÔ
+            //å±æ€§
             if ("-i".equals(args[1])) {
                 if (args.length < 6) {
-                    System.out.println("È±ÉÙ²ÎÊı...");
+                    System.out.println("ç¼ºå°‘å‚æ•°...");
                     System.out.println(CMD_TXT);
                     return;
                 }
-                //²åÈëÊôĞÔ
+                //æ’å…¥å±æ€§
                 String tag = args[2];
                 String tagName = args[3];
                 String attr = args[4];
                 String value = args[5];
                 XmlEditor.addAttr(tag, tagName, attr, value);
-                System.out.println("²åÈëÊôĞÔÍê³É...");
+                System.out.println("æ’å…¥å±æ€§å®Œæˆ...");
                 return;
             } else if ("-r".equals(args[1])) {
                 if (args.length < 5) {
-                    System.out.println("È±ÉÙ²ÎÊı...");
+                    System.out.println("ç¼ºå°‘å‚æ•°...");
                     System.out.println(CMD_TXT);
                     return;
                 }
-                //É¾³ıÊôĞÔ
+                //åˆ é™¤å±æ€§
                 String tag = args[2];
                 String tagName = args[3];
                 String attr = args[4];
                 XmlEditor.removeAttr(tag, tagName, attr);
-                System.out.println("É¾³ıÊôĞÔÍê³É...");
+                System.out.println("åˆ é™¤å±æ€§å®Œæˆ...");
                 return;
             } else if ("-m".equals(args[1])) {
                 if (args.length < 6) {
-                    System.out.println("È±ÉÙ²ÎÊı...");
+                    System.out.println("ç¼ºå°‘å‚æ•°...");
                     System.out.println(CMD_TXT);
                     return;
                 }
-                //ĞŞ¸ÄÊôĞÔ
+                //ä¿®æ”¹å±æ€§
                 String tag = args[2];
                 String tagName = args[3];
                 String attr = args[4];
                 String value = args[5];
                 XmlEditor.modifyAttr(tag, tagName, attr, value);
-                System.out.println("ĞŞ¸ÄÊôĞÔÍê³É...");
+                System.out.println("ä¿®æ”¹å±æ€§å®Œæˆ...");
             } else if ("-b".equals(args[1])) {
                 if (args.length < 6) {
-                    System.out.println("È±ÉÙ²ÎÊı...");
+                    System.out.println("ç¼ºå°‘å‚æ•°...");
                     System.out.println(CMD_TXT);
                     return;
                 }
-                //ÅúÁ¿ĞŞ¸ÄÊôĞÔ
+                //æ‰¹é‡ä¿®æ”¹å±æ€§
                 String tag = args[2];
                 String attrName = args[3];
                 String oldValue = args[4];
                 String newValue = args[5];
                 XmlEditor.BatchModifyAttr(tag, attrName, oldValue, newValue);
-                System.out.println("ĞŞ¸ÄÊôĞÔÍê³É...");
+                System.out.println("Modify Success...");
             } else {
-                System.out.println("²Ù×÷ÊôĞÔ²ÎÊıÓĞÎó...");
+                System.out.println("æ“ä½œå±æ€§å‚æ•°æœ‰è¯¯...");
                 System.out.println(CMD_TXT);
                 return;
             }

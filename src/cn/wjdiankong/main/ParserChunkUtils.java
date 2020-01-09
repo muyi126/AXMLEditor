@@ -44,7 +44,7 @@ public class ParserChunkUtils {
     }
 
     /**
-     * ½âÎöxmlµÄÍ·²¿ĞÅÏ¢
+     * è§£æxmlçš„å¤´éƒ¨ä¿¡æ¯
      *
      * @param byteSrc
      */
@@ -56,7 +56,7 @@ public class ParserChunkUtils {
     }
 
     /**
-     * ½âÎöStringChunk
+     * è§£æStringChunk
      *
      * @param byteSrc
      */
@@ -67,7 +67,7 @@ public class ParserChunkUtils {
     }
 
     /**
-     * ½âÎöResource Chunk
+     * è§£æResource Chunk
      *
      * @param byteSrc
      */
@@ -81,7 +81,7 @@ public class ParserChunkUtils {
     }
 
     /**
-     * ½âÎöStartNamespace Chunk
+     * è§£æStartNamespace Chunk
      *
      * @param byteSrc
      */
@@ -90,7 +90,7 @@ public class ParserChunkUtils {
     }
 
     /**
-     * ½âÎöEndNamespace Chunk
+     * è§£æEndNamespace Chunk
      *
      * @param byteSrc
      */
@@ -99,7 +99,7 @@ public class ParserChunkUtils {
     }
 
     /**
-     * ½âÎöStartTag Chunk
+     * è§£æStartTag Chunk
      *
      * @param byteSrc
      */
@@ -111,12 +111,12 @@ public class ParserChunkUtils {
         chunk.startTagChunk = tagChunk;
         tagChunkList.add(chunk);
 
-        //½âÎöTagName
+        //è§£æTagName
         byte[] tagNameByte = Utils.copyByte(byteSrc, 20, 4);
         int tagNameIndex = Utils.byte2int(tagNameByte);
         String tagName = xmlStruct.stringChunk.stringContentList.get(tagNameIndex);
 
-        //±ê¼ÇÊÇ·ñÎªapplication±êÇ©
+        //æ ‡è®°æ˜¯å¦ä¸ºapplicationæ ‡ç­¾
         if (tagName.equals("application")) {
             isApplication = true;
         }
@@ -124,7 +124,7 @@ public class ParserChunkUtils {
     }
 
     /**
-     * ½âÎöEndTag Chunk
+     * è§£æEndTag Chunk
      *
      * @param byteSrc
      */
@@ -133,11 +133,11 @@ public class ParserChunkUtils {
         TagChunk chunk = tagChunkList.remove(tagChunkList.size() - 1);
         chunk.endTagChunk = tagChunk;
         xmlStruct.endTagChunkList.add(tagChunk);
-        xmlStruct.tagChunkList.add(chunk);//±êÇ©½áÊøÁË£¬ĞèÒª°Ñ±êÇ©·ÅÈë³Ø×ÓÖĞ
+        xmlStruct.tagChunkList.add(chunk);//æ ‡ç­¾ç»“æŸäº†ï¼Œéœ€è¦æŠŠæ ‡ç­¾æ”¾å…¥æ± å­ä¸­
     }
 
     /**
-     * ½âÎöText Chunk
+     * è§£æText Chunk
      *
      * @param byteSrc
      */
@@ -146,7 +146,7 @@ public class ParserChunkUtils {
     }
 
     /**
-     * ¿ªÊ¼½âÎöxmlµÄÕıÎÄÄÚÈİChunk
+     * å¼€å§‹è§£æxmlçš„æ­£æ–‡å†…å®¹Chunk
      *
      * @param byteSrc
      */
@@ -163,12 +163,12 @@ public class ParserChunkUtils {
                     break;
                 case ChunkTypeNumber.CHUNK_STARTTAG:
                     parserStartTagChunk(Utils.copyByte(byteSrc, nextChunkOffset, chunkSize), nextChunkOffset);
-                    //ÊÇ·ñÎªapplication±êÇ©
+                    //æ˜¯å¦ä¸ºapplicationæ ‡ç­¾
                     if (isApplication) {
                         XmlEditor.subAppTagChunkOffset = nextChunkOffset + chunkSize;
                         isApplication = false;
                     }
-                    //ÊÇ·ñÎªmanifest±êÇ©
+                    //æ˜¯å¦ä¸ºmanifestæ ‡ç­¾
                     if (isManifest) {
                         XmlEditor.subTagChunkOffsets = nextChunkOffset + chunkSize;
                         isManifest = false;
@@ -187,7 +187,7 @@ public class ParserChunkUtils {
     }
 
     /**
-     * ÅĞ¶ÏÊÇ·ñµ½ÎÄ¼ş½áÊøÎ»ÖÃÁË
+     * åˆ¤æ–­æ˜¯å¦åˆ°æ–‡ä»¶ç»“æŸä½ç½®äº†
      *
      * @param totalLen
      * @return
