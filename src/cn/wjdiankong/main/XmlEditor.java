@@ -252,10 +252,12 @@ public class XmlEditor {
      */
     public static void BatchModifyAttr(String tag, String attrName, String oldAttrValue, String attrValue) {
         ParserChunkUtils.parserXml();
-        int count = getAttrCount(tag, attrName, oldAttrValue);
+        int count = getAttrCount(tag, attrName, oldAttrValue); // 获取需要修改的标签的数量
         while (count != 0) {
             String[] pa = getModifyValue(tag, attrName, oldAttrValue, attrValue);
-            modifyAttr(tag, pa[0], attrName, pa[1]);
+            if (pa != null){
+                modifyAttr(tag, pa[0], attrName, pa[1]);
+            }
             count--;
         }
     }
@@ -299,7 +301,7 @@ public class XmlEditor {
                 }
             }
         }
-        return res;
+        return null;
     }
 
     private static String getTagName(StartTagChunk chunk) {
@@ -439,7 +441,7 @@ public class XmlEditor {
     /**
      * 判断是否是application外部的标签，application的内部和外部标签需要区分对待
      *
-     * @param tagName
+     * @param tagName 标签名
      * @return
      */
     public static boolean isNotAppTag(String tagName) {
