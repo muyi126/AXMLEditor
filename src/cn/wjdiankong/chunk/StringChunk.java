@@ -1,6 +1,8 @@
 package cn.wjdiankong.chunk;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.nio.charset.Charset;
 
 import cn.wjdiankong.main.Utils;
 
@@ -22,9 +24,9 @@ public class StringChunk {
 
     public byte[] getByte(ArrayList<String> strList) {
 
-
-        byte[] strB = getStrListByte(strList);
-
+        Utils.writeDealInfo("strB 前 strList length : " + strList.size());
+        byte[] strB = getStrListByte(strList);  // 这里出错
+        Utils.writeDealInfo("strB length : " + strB.length);
 
         byte[] src = new byte[0];
 
@@ -142,7 +144,9 @@ public class StringChunk {
         while (chunk.stringContentList.size() < chunkStringCount) {
             //一个字符对应两个字节，所以要乘以 2
             int stringSize = Utils.byte2Short(Utils.copyByte(chunkStringContentByte, endStringIndex, 2)) * 2;
+//            Utils.writeDealInfo("Src length: " + chunkStringContentByte.length +"   start: " + endStringIndex + " len: " + stringSize);
             byte[] temp = Utils.copyByte(chunkStringContentByte, endStringIndex + 2, stringSize + 2);
+//            Utils.writeDealInfo("temp length: " + temp.length);
             String str = new String(temp);
             chunk.stringContentList.add(Utils.filterStringNull(str));
             endStringIndex += (2 + stringSize + 2);
@@ -150,7 +154,6 @@ public class StringChunk {
 
         int len = 0;
         for (String str : chunk.stringContentList) {
-//			System.out.println(str);
             len += 2;
             len += str.length() * 2;
             len += 2;
@@ -166,7 +169,10 @@ public class StringChunk {
     private byte[] getStrListByte(ArrayList<String> strList) {
         byte[] src = new byte[0];
         ArrayList<String> stringContentList = convertStrList(strList);
-        for (int i = 0; i < stringContentList.size(); i++) {
+        Utils.writeDealInfo("stringContentList 的 length : " + stringContentList.size());
+        // 由于中文字符 导致了这个问题
+        Utils.writeDealInfo(" stringContentList.get(138).getBytes()的length  : " + stringContentList.get(138));
+        for (int i = 0; i < stringContentList.size(); i++) {   // i = 138 时出现了错误
             byte[] tempAry = new byte[0];
             short len = (short) (stringContentList.get(i).length() / 2);
             byte[] lenAry = Utils.shortToByte(len);
@@ -174,6 +180,7 @@ public class StringChunk {
             tempAry = Utils.addByte(tempAry, stringContentList.get(i).getBytes());
             tempAry = Utils.addByte(tempAry, new byte[]{0, 0});
             src = Utils.addByte(src, tempAry);
+//            Utils.writeDealInfo("第"+ i +"次 src 的 length : " + src.length);
         }
         return src;
     }
@@ -181,13 +188,22 @@ public class StringChunk {
     private ArrayList<String> convertStrList(ArrayList<String> stringContentList) {
         ArrayList<String> destList = new ArrayList<String>(stringContentList.size());
         for (String str : stringContentList) {
-            byte[] temp = str.getBytes();
+            Utils.writeDealInfo("ConverStrList 前 : " + str);
+            byte[] temp =  str.getBytes();
+            Utils.writeDealInfo("ConverStrList 中 getBytes 的长度 : " + temp.length + " temp的内容 ： " + new String(temp));
             byte[] src = new byte[temp.length * 2];
+            Utils.writeDealInfo("src  的长度 : " + src.length);
             for (int i = 0; i < temp.length; i++) {
                 src[i * 2] = temp[i];
                 src[i * 2 + 1] = 0;
+//                Utils.writeDealInfo(i + "： temp[i] = " + temp[i]);
+//                Utils.writeDealInfo(i + "： src[i * 2] = " + src[i * 2]);
+//                Utils.writeDealInfo(i + "： src[i * 2 + 1] = " + src[i * 2 + 1]);
             }
-            destList.add(new String(src));
+
+            String s =  new String(src);
+            Utils.writeDealInfo("ConverStrList : " + s);
+            destList.add(s);
         }
         return destList;
     }

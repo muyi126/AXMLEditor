@@ -344,22 +344,29 @@ public class XmlEditor {
                 //如果是application，manifest标签直接处理就好
                 if (tag.equals("application") || tag.equals("manifest")) {
                     //还得修改对应的tag chunk中属性个个数和大小
+                    Utils.writeDealInfo("Before modify TagChunk : " + ParserChunkUtils.xmlStruct.byteSrc.length);
                     int countStart = chunk.offset + 28;
                     byte[] modifyByte = Utils.int2Byte(chunk.attrList.size() + 1);
                     ParserChunkUtils.xmlStruct.byteSrc = Utils.replaceBytes(ParserChunkUtils.xmlStruct.byteSrc, modifyByte, countStart);
+                    Utils.writeDealInfo("After modify TagChunk : " + ParserChunkUtils.xmlStruct.byteSrc.length);
 
                     //修改chunk的大小
+                    Utils.writeDealInfo("Before modify Chunk : " + ParserChunkUtils.xmlStruct.byteSrc.length);
                     int chunkSizeStart = chunk.offset + 4;
                     int chunkSize = Utils.byte2int(chunk.size);
                     byte[] modifyByteSize = Utils.int2Byte(chunkSize + 20);
                     ParserChunkUtils.xmlStruct.byteSrc = Utils.replaceBytes(ParserChunkUtils.xmlStruct.byteSrc, modifyByteSize, chunkSizeStart);
+                    Utils.writeDealInfo("After modify Chunk : " + ParserChunkUtils.xmlStruct.byteSrc.length);
 
                     //添加属性内容到原来的chunk上
                     ParserChunkUtils.xmlStruct.byteSrc = Utils.insertByte(ParserChunkUtils.xmlStruct.byteSrc, chunk.offset + chunkSize, data.getByte());
+                    Utils.writeDealInfo("After add to Chunk : " + ParserChunkUtils.xmlStruct.byteSrc.length);
 
                     modifyStringChunk();
+                    Utils.writeDealInfo("After modifyStringChunk() : " + ParserChunkUtils.xmlStruct.byteSrc.length);
 
                     modifyFileSize();
+                    Utils.writeDealInfo("modifyFileSize() : " + ParserChunkUtils.xmlStruct.byteSrc.length);
 
                     return;
                 }
@@ -370,22 +377,28 @@ public class XmlEditor {
                         String value = ParserChunkUtils.xmlStruct.stringChunk.stringContentList.get(attrData.valueString);
                         if (tagName.equals(value)) {
                             //还得修改对应的tag chunk中属性个个数和大小
+                            Utils.writeDealInfo("Before modify TagChunk : " + ParserChunkUtils.xmlStruct.byteSrc.length);
                             int countStart = chunk.offset + 28;
                             byte[] modifyByte = Utils.int2Byte(chunk.attrList.size() + 1);
                             ParserChunkUtils.xmlStruct.byteSrc = Utils.replaceBytes(ParserChunkUtils.xmlStruct.byteSrc, modifyByte, countStart);
-
+                            Utils.writeDealInfo("After modify TagChunk : " + ParserChunkUtils.xmlStruct.byteSrc.length);
                             //修改chunk的大小
+                            Utils.writeDealInfo("Before modify Chunk : " + ParserChunkUtils.xmlStruct.byteSrc.length);
                             int chunkSizeStart = chunk.offset + 4;
                             int chunkSize = Utils.byte2int(chunk.size);
                             byte[] modifyByteSize = Utils.int2Byte(chunkSize + 20);
                             ParserChunkUtils.xmlStruct.byteSrc = Utils.replaceBytes(ParserChunkUtils.xmlStruct.byteSrc, modifyByteSize, chunkSizeStart);
+                            Utils.writeDealInfo("After modify Chunk : " + ParserChunkUtils.xmlStruct.byteSrc.length);
 
                             //添加属性内容到原来的chunk上
                             ParserChunkUtils.xmlStruct.byteSrc = Utils.insertByte(ParserChunkUtils.xmlStruct.byteSrc, chunk.offset + chunkSize, data.getByte());
+                            Utils.writeDealInfo("After add to Chunk : " + ParserChunkUtils.xmlStruct.byteSrc.length);
 
                             modifyStringChunk();
+                            Utils.writeDealInfo("After modifyStringChunk() : " + ParserChunkUtils.xmlStruct.byteSrc.length);
 
                             modifyFileSize();
+                            Utils.writeDealInfo("modifyFileSize() : " + ParserChunkUtils.xmlStruct.byteSrc.length);
 
                             return;
                         }
@@ -404,7 +417,9 @@ public class XmlEditor {
     private static void modifyStringChunk() {
         //写入StartTagChunk chunk之前，因为有字符串信息增加，所以得修改字符串内容
         StringChunk strChunk = ParserChunkUtils.xmlStruct.stringChunk;
-        byte[] newStrChunkB = strChunk.getByte(ParserChunkUtils.xmlStruct.stringChunk.stringContentList);
+
+        byte[] newStrChunkB = strChunk.getByte(ParserChunkUtils.xmlStruct.stringChunk.stringContentList); // 这里出错
+
         //删除原始String Chunk
         ParserChunkUtils.xmlStruct.byteSrc = Utils.removeByte(ParserChunkUtils.xmlStruct.byteSrc, ParserChunkUtils.stringChunkOffset, Utils.byte2int(strChunk.size));
         //插入新的String Chunk

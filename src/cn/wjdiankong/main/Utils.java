@@ -1,8 +1,13 @@
 package cn.wjdiankong.main;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Utils {
@@ -66,7 +71,7 @@ public class Utils {
     }
 
     public static char[] getChars(byte[] bytes) {
-        Charset cs = Charset.forName("UTF-8");
+        Charset cs = StandardCharsets.UTF_8;
         ByteBuffer bb = ByteBuffer.allocate(bytes.length);
         bb.put(bytes);
         bb.flip();
@@ -155,6 +160,7 @@ public class Utils {
         if (len <= 0) {
             return null;
         }
+
         byte[] resultByte = new byte[len];
         for (int i = 0; i < len; i++) {
             resultByte[i] = src[i + start];
@@ -205,7 +211,8 @@ public class Utils {
         if (str == null || str.length() == 0) {
             return str;
         }
-        byte[] strByte = str.getBytes();
+        byte[] strByte = new byte[0];
+        strByte = str.getBytes();
         ArrayList<Byte> newByte = new ArrayList<Byte>();
         for (int i = 0; i < strByte.length; i++) {
             if (strByte[i] != 0) {
@@ -242,10 +249,25 @@ public class Utils {
             valAry[j] = byteList.get(j);
         }
         try {
-            return new String(valAry, "UTF-8");
+            return new String(valAry, StandardCharsets.UTF_8);
         } catch (Exception e) {
             System.out.println("encode error:" + e.toString());
             return "";
+        }
+    }
+
+
+    public static void writeDealInfo(String str_log)
+    {
+        try
+        {
+            FileWriter fw = new FileWriter("log.txt",true);
+            fw.write(str_log + "\r\n");
+            fw.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println("书写日志发生错误：" + e.toString());
         }
     }
 
