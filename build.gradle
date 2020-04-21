@@ -1,0 +1,29 @@
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'application'
+apply plugin: 'java'
+
+group 'cn.wjdiankong.main'
+version '1.0-SNAPSHOT'
+
+mainClassName = "cn.wjdiankong.main.Main"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+archivesBaseName = "AXmlEdit"
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.1"
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
