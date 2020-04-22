@@ -159,6 +159,7 @@ public class ParserChunkUtils {
             switch (chunkTag) {
                 case ChunkTypeNumber.CHUNK_STARTNS:
                     parserStartNamespaceChunk(Utils.copyByte(byteSrc, nextChunkOffset, chunkSize));
+                    parserStartNamespaceChunk(Utils.copyByte(byteSrc, nextChunkOffset, chunkSize));
                     isManifest = true;
                     break;
                 case ChunkTypeNumber.CHUNK_STARTTAG:

@@ -255,10 +255,53 @@ public class XmlEditor {
         int count = getAttrCount(tag, attrName, oldAttrValue); // 获取需要修改的标签的数量
         while (count != 0) {
             String[] pa = getModifyValue(tag, attrName, oldAttrValue, attrValue);
-            if (pa != null){
+            if (pa != null) {
                 modifyAttr(tag, pa[0], attrName, pa[1]);
             }
             count--;
+        }
+    }
+
+
+    /**
+     * 批量修改属性值
+     *
+     * @param tag          标签名
+     * @param attrName     属性名
+     * @param oldAttrValue 旧的属性值
+     * @param attrValue    新的属性值
+     */
+    public static void test(String tag, String attrName, String oldAttrValue, String attrValue) {
+        ParserChunkUtils.parserXml();
+        int res = 0;
+        for (StartTagChunk chunk : ParserChunkUtils.xmlStruct.startTagChunkList) { // 每一个 tag
+            int tagNameIndex = Utils.byte2int(chunk.name);
+            int tagUriIndex = Utils.byte2int(chunk.uri);
+            String tagNameTmp = ParserChunkUtils.xmlStruct.stringChunk.stringContentList.get(tagNameIndex);
+            if (tagUriIndex >= 0) {
+                String tagUriTmp = ParserChunkUtils.xmlStruct.stringChunk.stringContentList.get(tagUriIndex);
+                Utils.writeDealInfo("tagUriTmp:" + tagUriTmp);
+            }
+            if (tag.equals(tagNameTmp)) {
+                for (AttributeData attrData : chunk.attrList) { // 每一个属性
+                    String attrNameTemp = attrData.getName();
+                    Utils.writeDealInfo("attrNameTemp:" + attrNameTemp);
+                    if (attrNameTemp.equals(attrName)) {
+                        String attrValueTmp = attrData.getData();
+                        Utils.writeDealInfo("attrValueTmp:" + attrValueTmp);
+                    }
+                }
+            }
+        }
+        if (true) {
+            return;
+        }
+        while (res != 0) {
+            String[] pa = getModifyValue(tag, attrName, oldAttrValue, attrValue);
+            if (pa != null) {
+                modifyAttr(tag, pa[0], attrName, pa[1]);
+            }
+            res--;
         }
     }
 
@@ -270,6 +313,7 @@ public class XmlEditor {
             if (tag.equals(tagNameTmp)) {
                 for (AttributeData attrData : chunk.attrList) { // 每一个属性
                     String attrNameTemp = attrData.getName();
+                    Utils.writeDealInfo("attrNameTemp:" + attrNameTemp);
                     if (attrNameTemp.equals(attrName)) {
                         String attrValueTmp = attrData.getData();
                         if (attrValueTmp.contains(oldAttrValue)) {
@@ -323,13 +367,19 @@ public class XmlEditor {
      * @param attrValue
      */
     public static void addAttr(String tag, String tagName, String attrName, String attrValue) {
+        addAttr(tag, tagName, attrName, attrValue, "");
+    }
+
+    public static void addAttr(String tag, String tagName, String attrName, String attrValue, String uri) {
         ParserChunkUtils.parserXml();
         //构造一个属性出来
         int[] type = getAttrType(attrValue);
         int attrname = getStrIndex(attrName);
         int attrvalue = getStrIndex(attrValue);
         int attruri = getStrIndex(prefixStr);
-        ;
+        if (null != uri && !"".equals(uri)) {
+            attruri = getStrIndex(uri);
+        }
         int attrtype = type[0];//属性类型
         int attrdata = type[1];//属性值，是int类型
 

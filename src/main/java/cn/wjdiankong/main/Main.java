@@ -223,7 +223,18 @@ public class Main {
                 String tagName = args[3];
                 String attr = args[4];
                 String value = args[5];
-                XmlEditor.addAttr(tag, tagName, attr, value);
+                String uri = args[6];
+                if (uri.contains("http:")) {
+                    //第六个如果是uri那么就是要加namespace
+                    XmlEditor.addAttr(tag, tagName, attr, value, uri);
+                    //用完需要把 7 8 迁移 不影响后面逻辑
+                    args[6] = args[7];
+                    args[7] = args[8];
+                } else {
+                    XmlEditor.addAttr(tag, tagName, attr, value);
+                }
+
+//                XmlEditor.test(tag, tagName, attr, value);
                 System.out.println("插入属性完成...");
                 return;
             } else if ("-r".equals(args[1])) {

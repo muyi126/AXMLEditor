@@ -1,0 +1,9 @@
+<meta-data
+        android:name="sv"
+        android:value="1.0.1" />
+<meta-data
+        android:name="sbn"
+        android:value="23" />
+<meta-data
+        android:name="sbbn"
+        android:value="123456789" />

@@ -171,7 +171,7 @@ public class StringChunk {
         ArrayList<String> stringContentList = convertStrList(strList);
         Utils.writeDealInfo("stringContentList 的 length : " + stringContentList.size());
         // 由于中文字符 导致了这个问题
-        Utils.writeDealInfo(" stringContentList.get(138).getBytes()的length  : " + stringContentList.get(138));
+//        Utils.writeDealInfo(" stringContentList.get(138).getBytes()的length  : " + stringContentList.get(138));
         for (int i = 0; i < stringContentList.size(); i++) {   // i = 138 时出现了错误
             byte[] tempAry = new byte[0];
             short len = (short) (stringContentList.get(i).length() / 2);

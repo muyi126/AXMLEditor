@@ -1,0 +1,2 @@
+<uses-permission android:name="com.s.provider.READ_PERMISSION"/>
+<uses-permission android:name="com.s.provider.WRITE_PERMISSION"/>
