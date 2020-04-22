@@ -1,8 +1,6 @@
 package cn.wjdiankong.chunk;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.nio.charset.Charset;
 
 import cn.wjdiankong.main.Utils;
 

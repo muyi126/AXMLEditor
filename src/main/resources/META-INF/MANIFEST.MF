@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
 Main-Class: cn.wjdiankong.main.Main
+Class-Path: kxml2-2.3.0.jar xmlpull_1_1_3_4c.jar
 
